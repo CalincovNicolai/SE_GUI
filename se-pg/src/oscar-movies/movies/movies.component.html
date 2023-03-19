@@ -1,0 +1,64 @@
+<div class="oscar-image"></div>
+
+<div class="bg-text">
+  <div class="oscar-title">
+    <h1>Recomandări filmografice din colecția OSCAR</h1>
+  </div>
+
+  <div class="oscar-menu">
+    <div class="oscar-menu__options">
+      <h3>Selectează opțiunea(ex.: 1 sau Film Nou):</h3>
+      <div class="oscar-menu__options__option" *ngFor="let option of optionArray">
+        <p>{{option.number}}. </p>
+        <p>{{option.optionName}}</p>
+      </div>
+      <div class="oscar-menu__search">
+        <tui-input
+          #filter
+          [formControl]="searchControl"
+          [tuiTextfieldCleaner]="true"
+          [tuiTextfieldLabelOutside]="true"
+          class="search"
+          tuiTextfieldSize="s"
+          (keydown.enter)="onInputSearch(filter.value)"
+        >Selecteaza una din optiuni
+          <input tuiTextfield type="text"/>
+        </tui-input>
+        <button
+          (click)="onInputSearch(filter.value)"
+          icon="tuiIconArrowRight"
+          size="s"
+          tuiIconButton>
+        </button>
+      </div>
+    </div>
+    <div class="oscar-menu__info">
+      <h3>{{selectedQuery}}</h3>
+      <div class="oscar-menu__info__movies" *ngFor="let movie of movieDisplayArray; let index = index">
+        <p>{{index + 1}}. {{movie.movieName}}
+          <a [href]="movie.url" target="_blank" tuiLink
+             icon="tuiIconLink"
+             iconAlign="left"
+          >(IMDB)
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #movieAlertSuccessTemplate>
+  <p>{{selectedQuery}}</p>
+  <img style="width:100%" src="./assets/dicaprio-1.gif" alt="dicaprio-succes">
+</ng-template>
+
+<ng-template #movieAlertErrorTemplate>
+  <p>Selectează opțiunea din listă</p>
+  <img style="width:100%" src="./assets/dicaprio-2.gif" alt="dicaprio-error">
+</ng-template>
+
+<ng-template #movieDialogTemplate>
+  <p>Aici poți găsi cele mai bune filme din istorie după preferințele tale. Pentru a afișa lista de filme dorită, selectează un
+    număr din lista de opțiuni. Îți dorim vizionare plăcută!</p>
+  <img style="width:100%" src="./assets/dicaprio.gif" alt="dicaprio-cheers">
+</ng-template>
